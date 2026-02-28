@@ -8,8 +8,8 @@ const app = express();
 app.use(
   cors({
     origin: "*",
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
+    methods: ["GET", "POST"],
+    
   })
 );
  // Handle preflight requests
