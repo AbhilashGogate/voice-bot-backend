@@ -10,14 +10,13 @@ const app = express();
 // ✅ CORS FIRST
 app.use(cors({
   origin: "http://localhost:5173",
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
+  methods: ["GET", "POST"],
+  
 }));
 
 app.use(express.json());
 
-// ✅ Handle preflight explicitly
-app.options("*", cors());
+
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
