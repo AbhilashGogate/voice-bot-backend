@@ -5,16 +5,17 @@ import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
+import cors from "cors";
+
 const app = express();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
-app.use(express.json());
+app.use(cors({
+  origin: "http://localhost:5173",
+}));
 
+app.options("*", cors());   // 👈 THIS IS CRITICAL
+
+app.use(express.json());
 
 app.post("/chat", async (req, res) => {
   try {
