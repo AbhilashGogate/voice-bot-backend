@@ -1,22 +1,23 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
 const app = express();
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    methods: ["GET", "POST"],
-    credentials: true
-    
-  })
-);
- // Handle preflight requests
-app.use(express.json());
-app.options("*", cors());
 
+// ✅ CORS FIRST
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+}));
+
+app.use(express.json());
+
+// ✅ Handle preflight explicitly
+app.options("*", cors());
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
